@@ -5,7 +5,20 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Akash Prasher — Senior Software Engineer",
   description:
-    "Portfolio of Akash Prasher, a senior software engineer building thoughtful frontend, backend, and full-stack products.",
+    "Akash Prasher is a Senior Software Engineer in Delhi, India, building scalable full-stack products with React, Next.js, TypeScript, Node.js, and FastAPI.",
+  keywords: [
+    "Akash Prasher",
+    "Senior Software Engineer",
+    "Full-Stack Engineer",
+    "Software Engineer in Delhi",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "FastAPI",
+    "Backend Engineering",
+    "Frontend Engineering",
+  ],
 };
 
 export default function RootLayout({

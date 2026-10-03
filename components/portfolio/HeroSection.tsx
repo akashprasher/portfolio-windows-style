@@ -1,4 +1,5 @@
 import type { PortfolioData } from "@/lib/data/portfolio";
+import { StatusWindow } from "./StatusWindow";
 import { WindowBar } from "./Window";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -62,42 +63,7 @@ export function HeroSection({ data }: { data: PortfolioData }) {
           </div>
         </div>
       </article>
-      <aside className="window status-window">
-        <WindowBar title="system_status.txt" />
-        <div className="status-content">
-          <div className="profile-stamp" aria-hidden="true">
-            <span className="stamp-sun">✳</span>
-            <span className="stamp-initials">AP</span>
-            <span className="stamp-caption">BUILD / SHIP / REPEAT</span>
-          </div>
-          <div className="status-line">
-            <span>CURRENT ROLE</span>
-            <strong>{profile.currentRole}</strong>
-          </div>
-          <div className="status-line">
-            <span>LOCATION</span>
-            <strong>
-              {profile.location} <em>IST · UTC+5:30</em>
-            </strong>
-          </div>
-          <div className="status-line">
-            <span>STATUS</span>
-            <strong className="online">
-              <i className="status-dot" /> {profile.status}
-            </strong>
-          </div>
-          <div className="stats-row">
-            <div>
-              <strong>{profile.paymentStat}</strong>
-              <small>PAYMENTS POWERED</small>
-            </div>
-            <div>
-              <strong>{profile.retentionStat}</strong>
-              <small>RETENTION LIFT</small>
-            </div>
-          </div>
-        </div>
-      </aside>
+      <StatusWindow profile={profile} skills={data.skills} />
     </section>
   );
 }
