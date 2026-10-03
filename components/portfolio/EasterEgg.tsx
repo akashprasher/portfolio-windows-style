@@ -63,42 +63,13 @@ export function EasterEggProvider({
     const audio = new Audio("/audio/error.mp3");
     audio.preload = "auto";
     audio.volume = 0.45;
-    let waitingForGesture = false;
-    let disposed = false;
-
-    function removeGestureListeners() {
-      document.removeEventListener("pointerdown", handleUserGesture);
-      document.removeEventListener("keydown", handleUserGesture);
-      waitingForGesture = false;
-    }
-
-    function handleUserGesture() {
-      removeGestureListeners();
-      void playErrorSound();
-    }
-
-    async function playErrorSound() {
-      try {
-        audio.currentTime = 0;
-        await audio.play();
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "NotAllowedError") {
-          if (!disposed && !waitingForGesture) {
-            waitingForGesture = true;
-            document.addEventListener("pointerdown", handleUserGesture);
-            document.addEventListener("keydown", handleUserGesture);
-          }
-          return;
-        }
-
-        console.warn("Could not play the display error sound.", error);
+    void audio.play().catch((error: unknown) => {
+      if (error instanceof DOMException && error.name === "NotAllowedError") {
+        return;
       }
-    }
-
-    void playErrorSound();
+      console.warn("Could not play the display error sound.", error);
+    });
     return () => {
-      disposed = true;
-      removeGestureListeners();
       audio.pause();
     };
   }, [displayGlitch]);
