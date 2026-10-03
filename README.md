@@ -5,11 +5,13 @@ Retro-OS styled portfolio built with Next.js App Router. Content is represented 
 ## Routes and structure
 
 - `/` — public portfolio.
+- `/resume` — redirects to the published Google Docs/Drive or Microsoft OneDrive/SharePoint resume link.
 - `/admin/login` — allowlisted email sign-in link.
 - `/admin` — authenticated portfolio editor; superadmins also manage the admin allowlist.
 - `app/admin/actions.ts` — server actions for login, content save, and admin management.
 - `supabase/migrations/` — schema and Row Level Security policies.
 - `lib/data/portfolio.ts` — types and local fallback content.
+- `lib/data/resume-url.ts` — validates approved resume document hosts.
 - `components/portfolio/` — public site sections.
 - `components/admin/` — login form, content editor, and access panel.
 
@@ -40,5 +42,7 @@ Without Supabase credentials, `/` renders the local portfolio fallback and `/adm
 6. Visit `/admin/login` and sign in with the superadmin's Google account. A superadmin can add or remove regular admins from **Admin access**. Adding an email updates the allowlist but does not send an invitation; the new admin must sign in with Google using that same email address.
 
 The portfolio table is publicly readable. Database writes require an authenticated JWT whose email is in `admin_users`; server actions independently check the role. Allowlist rows are not writable through the public client. Only a superadmin can add or remove regular admin rows through the admin panel; the first superadmin is bootstrapped in SQL. The panel does not promote or remove superadmins. Keep at least one superadmin row.
+
+Set **Resume document URL** in the admin Profile section to a public Google Docs/Drive or Microsoft OneDrive/SharePoint sharing link, then click **Save & publish**. The URL is stored as `resumeUrl` inside the existing `portfolio_content.data` JSON record, so no extra table or schema migration is needed. The header/footer resume links appear once a link is set. `/resume` redirects to that saved link; it returns a not-found response if no valid resume link has been published.
 
 After editing, click **Save & publish**; the public `/` route is revalidated and reads the latest database content. If no content row exists yet, the local starter data is shown until the first save.

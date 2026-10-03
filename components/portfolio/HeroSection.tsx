@@ -2,7 +2,13 @@ import type { PortfolioData } from "@/lib/data/portfolio";
 import { WindowBar } from "./Window";
 import { ThemeToggle } from "./ThemeToggle";
 
-export function SiteHeader({ profile }: { profile: PortfolioData["profile"] }) {
+export function SiteHeader({
+  profile,
+  resumeAvailable,
+}: {
+  profile: PortfolioData["profile"];
+  resumeAvailable: boolean;
+}) {
   return (
     <header className="topbar">
       <a className="brand" href="#home" aria-label={`${profile.name} home`}>
@@ -14,6 +20,7 @@ export function SiteHeader({ profile }: { profile: PortfolioData["profile"] }) {
         <a href="#experience">EXPERIENCE</a>
         <a href="#projects">PROJECTS</a>
         <a href="#contact">CONTACT</a>
+        {resumeAvailable && <a href="/resume">RESUME</a>}
       </nav>
       <ThemeToggle />
     </header>
@@ -41,8 +48,8 @@ export function HeroSection({ data }: { data: PortfolioData }) {
             <a className="retro-button primary-button" href="#projects">
               Explore my work <span>↘</span>
             </a>
-            <a className="retro-button" href={`mailto:${profile.email}`}>
-              Send me a message <span>↗</span>
+            <a className="retro-button" href="#contact">
+              Get in touch <span>↗</span>
             </a>
           </div>
           <div className="hero-meta">

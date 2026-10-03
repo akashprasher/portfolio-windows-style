@@ -1018,13 +1018,24 @@ p {
     monospace;
   letter-spacing: 0.5px;
 }
-.email-shortcut {
+.footer-resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   padding: 8px 10px;
   border-left: 1px solid #b1b4b3;
-  color: #383d40;
+  color: var(--blue-dark);
   font:
-    11px "Courier New",
+    700 10px "Courier New",
     monospace;
+}
+.footer-resume-link:hover {
+  text-decoration: underline;
+}
+.admin-field-description {
+  color: #6a7073;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
 @media (max-width: 900px) {
@@ -1125,7 +1136,7 @@ html[data-theme="dark"] .hero-copy,
   html[data-theme="dark"] .project-footer,
   html[data-theme="dark"] .education-content p,
   html[data-theme="dark"] .taskbar-center,
-  html[data-theme="dark"] .email-shortcut {
+  html[data-theme="dark"] .footer-resume-link {
   color: var(--muted);
 }
 html[data-theme="dark"] .theme-toggle,
@@ -1161,7 +1172,7 @@ html[data-theme="dark"] .hero-meta,
   html[data-theme="dark"] .job-meta span,
   html[data-theme="dark"] .project-stack,
   html[data-theme="dark"] .project-footer,
-  html[data-theme="dark"] .email-shortcut {
+  html[data-theme="dark"] .footer-resume-link {
   border-color: #3b454c;
 }
 html[data-theme="dark"] .profile-stamp {
@@ -1231,9 +1242,6 @@ html[data-theme="dark"] .start-button,
 }
 html[data-theme="dark"] .window-taskbar-button:hover {
   background: #43525c;
-}
-html[data-theme="dark"] .email-shortcut {
-  color: #c3cdd3;
 }
 html[data-theme="dark"] .window-taskbar {
     border-color: #10161a;
@@ -1332,12 +1340,8 @@ html[data-theme="dark"] .education-year {
     border-top: 1px solid #c2c5c4;
     font-size: 8px;
   }
-  .email-shortcut {
+  .footer-resume-link {
     margin-left: auto;
-    font-size: 0;
-  }
-  .email-shortcut span {
-    display: none;
   }
 }
 

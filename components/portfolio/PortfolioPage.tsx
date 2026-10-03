@@ -10,7 +10,10 @@ export function PortfolioPage({ data }: { data: PortfolioData }) {
   return (
     <WindowManagerProvider>
       <main className="desktop-shell">
-        <SiteHeader profile={data.profile} />
+        <SiteHeader
+          profile={data.profile}
+          resumeAvailable={Boolean(data.resumeUrl)}
+        />
         <HeroSection data={data} />
         <AboutSection data={data} />
         <ExperienceSection experience={data.experience} />
@@ -25,9 +28,11 @@ export function PortfolioPage({ data }: { data: PortfolioData }) {
             <span>© 2026 {data.profile.name.toUpperCase()}</span>
             <span>DESIGNED TO SHIP.</span>
           </div>
-          <a className="email-shortcut" href={`mailto:${data.profile.email}`}>
-            ✉ <span>{data.profile.email}</span>
-          </a>
+          {data.resumeUrl && (
+            <a className="footer-resume-link" href="/resume">
+              RESUME <span aria-hidden="true">↗</span>
+            </a>
+          )}
         </footer>
       </main>
     </WindowManagerProvider>

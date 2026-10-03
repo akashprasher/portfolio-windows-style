@@ -1,3 +1,5 @@
+import { isAllowedResumeUrl } from "./resume-url";
+
 export type Experience = {
   company: string;
   location: string;
@@ -17,6 +19,7 @@ export type Project = {
 };
 
 export type PortfolioData = {
+  resumeUrl?: string;
   profile: {
     name: string;
     title: string;
@@ -44,6 +47,7 @@ export type PortfolioData = {
 };
 
 export const defaultPortfolioData: PortfolioData = {
+  resumeUrl: "",
   profile: {
     name: "Akash Prasher",
     title: "Senior Software Engineer",
@@ -196,7 +200,12 @@ export function isPortfolioData(value: unknown): value is PortfolioData {
         (item.url === "" ||
           (typeof item.url === "string" && /^https?:\/\//i.test(item.url))),
     );
+  const resumeUrlValid =
+    data.resumeUrl === undefined ||
+    (typeof data.resumeUrl === "string" &&
+      isAllowedResumeUrl(data.resumeUrl));
   return Boolean(
+    resumeUrlValid &&
     hasStrings(data.profile, [
       "name",
       "title",

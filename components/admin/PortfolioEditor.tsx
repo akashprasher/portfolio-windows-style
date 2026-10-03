@@ -9,11 +9,15 @@ function Field({
   value,
   onChange,
   multiline = false,
+  type = "text",
+  description,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   multiline?: boolean;
+  type?: "text" | "url";
+  description?: string;
 }) {
   return (
     <label className="admin-field">
@@ -26,9 +30,13 @@ function Field({
         />
       ) : (
         <input
+          type={type}
           value={value}
           onChange={(event) => onChange(event.target.value)}
         />
+      )}
+      {description && (
+        <small className="admin-field-description">{description}</small>
       )}
     </label>
   );
@@ -65,6 +73,9 @@ export function PortfolioEditor({
       ...current,
       profile: { ...current.profile, [key]: value },
     }));
+  }
+  function setResumeUrl(value: string) {
+    setData((current) => ({ ...current, resumeUrl: value }));
   }
   function setExperience(
     index: number,
@@ -122,7 +133,7 @@ export function PortfolioEditor({
           <span>01</span>
           <div>
             <h2>Profile</h2>
-            <p>Intro, contact details, and highlight stats.</p>
+            <p>Intro, contact details, resume link, and highlight stats.</p>
           </div>
         </div>
         <div className="admin-fields-grid">
@@ -165,6 +176,13 @@ export function PortfolioEditor({
             label="Status label"
             value={data.profile.status}
             onChange={(value) => setProfile("status", value)}
+          />
+          <Field
+            label="Resume document URL"
+            value={data.resumeUrl ?? ""}
+            onChange={setResumeUrl}
+            type="url"
+            description="Use a public Google Docs/Drive or Microsoft OneDrive/SharePoint sharing link. The public /resume route redirects here."
           />
           <Field
             label="Hero intro"

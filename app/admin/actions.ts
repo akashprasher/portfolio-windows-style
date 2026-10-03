@@ -6,6 +6,7 @@ import { getAdminContext } from "@/lib/supabase/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { isPortfolioData, type PortfolioData } from "@/lib/data/portfolio";
+import { isAllowedResumeUrl } from "@/lib/data/resume-url";
 
 export async function startAdminGoogleOAuth(): Promise<
   { ok: false; message: string } | { ok: true; url: string }
@@ -49,6 +50,18 @@ export async function savePortfolioData(data: PortfolioData) {
       ok: false,
       message: "You are not authorized to update this portfolio.",
     };
+  if (!data || typeof data !== "object")
+    return { ok: false, message: "The submitted portfolio data is invalid." };
+  if (
+    typeof data.resumeUrl === "string" &&
+    !isAllowedResumeUrl(data.resumeUrl)
+  ) {
+    return {
+      ok: false,
+      message:
+        "Use an HTTPS sharing link from Google Docs/Drive or Microsoft OneDrive/SharePoint.",
+    };
+  }
   if (!isPortfolioData(data))
     return { ok: false, message: "The submitted portfolio data is invalid." };
 
@@ -61,6 +74,7 @@ export async function savePortfolioData(data: PortfolioData) {
 
   revalidatePath("/");
   revalidatePath("/admin");
+  revalidatePath("/resume");
   return {
     ok: true,
     message: "Saved. The public portfolio now has the latest content.",

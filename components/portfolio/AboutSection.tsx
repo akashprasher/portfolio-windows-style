@@ -12,8 +12,8 @@ export function AboutSection({ data }: { data: PortfolioData }) {
         />
         <p>{data.profile.bio}</p>
         <p>{data.profile.secondBio}</p>
-        <a className="text-link" href={`mailto:${data.profile.email}`}>
-          LET&apos;S BUILD SOMETHING <span>↗</span>
+        <a className="text-link" href="#contact">
+          LET&apos;S CONNECT <span>↗</span>
         </a>
       </div>
       <div className="window skills-window">
