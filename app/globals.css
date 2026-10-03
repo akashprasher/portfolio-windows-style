@@ -77,15 +77,6 @@ a:focus-visible {
   letter-spacing: -0.5px;
   white-space: nowrap;
 }
-.brand small {
-  display: block;
-  margin-top: 5px;
-  color: var(--muted);
-  font:
-    700 9px/1 "Courier New",
-    monospace;
-  letter-spacing: 1.1px;
-}
 .brand-mark {
   display: grid;
   place-items: center;
@@ -132,14 +123,41 @@ a:focus-visible {
 .main-nav a:hover::after {
   transform: scaleX(1);
 }
-.admin-link {
-  display: inline-flex;
+.theme-toggle {
+  width: 104px;
+  min-height: 34px;
+  display: grid;
+  grid-template-columns: 16px 48px;
   align-items: center;
-  gap: 8px;
-  padding: 9px 10px;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 10px;
   border: 1px solid #9ba1a5;
-  background: rgba(255, 255, 255, 0.55);
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  font:
+    700 9px "Courier New",
+    monospace;
+  letter-spacing: 0.45px;
   white-space: nowrap;
+}
+.theme-toggle:hover {
+  border-color: var(--blue-dark);
+  color: var(--blue-dark);
+}
+.theme-toggle-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+.theme-toggle-label {
+  text-align: center;
+}
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
 }
 .status-dot {
   display: inline-block;
@@ -886,6 +904,11 @@ p {
   z-index: 1;
   min-height: 38px;
   background: #f4f4f1;
+  color: #005a9e;
+}
+.contact-button:hover {
+  background: white;
+  color: #003f70;
 }
 .contact-details {
   position: relative;
@@ -1021,9 +1044,6 @@ p {
   .hero-grid {
     grid-template-columns: minmax(0, 1.4fr) minmax(245px, 0.8fr);
   }
-  .admin-link {
-    font-size: 9px;
-  }
   .project-art {
     height: 115px;
   }
@@ -1043,14 +1063,187 @@ p {
   .brand {
     font-size: 12px;
   }
-  .admin-link {
-    padding: 8px;
-    font-size: 0;
+  .theme-toggle {
+    width: 34px;
+    min-height: 32px;
+    padding: 0;
+    grid-template-columns: 16px;
   }
-  .admin-link .status-dot {
-    width: 9px;
-    height: 9px;
+  .theme-toggle-label {
+    display: none;
   }
+}
+
+html[data-theme="dark"] body:has(.desktop-shell) {
+  background-color: #11171c;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(210, 224, 235, 0.025) 0,
+      rgba(210, 224, 235, 0.025) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(115deg, #171e24, #11171c 60%, #1a2228);
+}
+html[data-theme="dark"] .desktop-shell {
+    --blue: #1689e5;
+    --blue-dark: #79c2ff;
+    --blue-soft: #17374d;
+    --red: #ff727c;
+    --ink: #edf2f5;
+    --muted: #aeb8c0;
+    --paper: #151c21;
+    --panel: #20282e;
+    --line: #0b1014;
+    color: var(--ink);
+}
+html[data-theme="dark"] .topbar {
+    border-bottom-color: #3b454c;
+}
+html[data-theme="dark"] .window {
+    box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.38);
+}
+html[data-theme="dark"] .window[data-window-state="maximized"] {
+    box-shadow: 5px 8px 30px rgba(0, 0, 0, 0.65);
+}
+html[data-theme="dark"] .hero-copy,
+  html[data-theme="dark"] .hero-meta,
+  html[data-theme="dark"] .stamp-caption,
+  html[data-theme="dark"] .status-line > span,
+  html[data-theme="dark"] .status-line em,
+  html[data-theme="dark"] .stats-row small,
+  html[data-theme="dark"] .about-copy > p,
+  html[data-theme="dark"] .skills-label span:last-child,
+  html[data-theme="dark"] .skill-chip,
+  html[data-theme="dark"] .skill-note,
+  html[data-theme="dark"] .job-meta,
+  html[data-theme="dark"] .experience-card li,
+  html[data-theme="dark"] .section-count,
+  html[data-theme="dark"] .project-body p,
+  html[data-theme="dark"] .project-stack,
+  html[data-theme="dark"] .project-footer,
+  html[data-theme="dark"] .education-content p,
+  html[data-theme="dark"] .taskbar-center,
+  html[data-theme="dark"] .email-shortcut {
+  color: var(--muted);
+}
+html[data-theme="dark"] .theme-toggle,
+  html[data-theme="dark"] .retro-button,
+  html[data-theme="dark"] .stats-row > div,
+  html[data-theme="dark"] .skill-chip,
+  html[data-theme="dark"] .education-year {
+    border-color: #53616a;
+    background: #2a343b;
+    color: var(--ink);
+  box-shadow:
+    inset 1px 1px rgba(255, 255, 255, 0.08),
+    2px 2px 0 rgba(0, 0, 0, 0.28);
+}
+html[data-theme="dark"] .theme-toggle:hover,
+  html[data-theme="dark"] .retro-button:hover {
+    border-color: #79c2ff;
+    background: #34434d;
+  color: #b9e0ff;
+}
+html[data-theme="dark"] .primary-button {
+    border-color: #004e8a;
+    background: var(--blue);
+  color: white;
+}
+html[data-theme="dark"] .primary-button:hover {
+    background: #1689e5;
+  color: white;
+}
+html[data-theme="dark"] .hero-meta,
+  html[data-theme="dark"] .status-line,
+  html[data-theme="dark"] .skills-label,
+  html[data-theme="dark"] .job-meta span,
+  html[data-theme="dark"] .project-stack,
+  html[data-theme="dark"] .project-footer,
+  html[data-theme="dark"] .email-shortcut {
+  border-color: #3b454c;
+}
+html[data-theme="dark"] .profile-stamp {
+    border-color: #4d5a62;
+    background-color: #273137;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(210, 224, 235, 0.035) 0 1px,
+        transparent 1px 4px
+      ),
+    linear-gradient(135deg, #303b42, #20292f);
+}
+html[data-theme="dark"] .stamp-initials {
+  text-shadow: 2px 2px #152027;
+}
+html[data-theme="dark"] .skill-featured {
+    border-color: #3178a8;
+    background: #17374d;
+  color: #9dd5ff;
+}
+html[data-theme="dark"] .skill-note {
+  background: #2a343b;
+}
+html[data-theme="dark"] .job-meta strong {
+  color: #e0e8ed;
+}
+html[data-theme="dark"] .experience-index,
+  html[data-theme="dark"] .card-corner {
+  color: #87939b;
+}
+html[data-theme="dark"] .experience-card li::before {
+  background: #17374d;
+}
+html[data-theme="dark"] .project-art-icon {
+    border-color: #46525a;
+  background: linear-gradient(135deg, #e7ebed, #bec6ca);
+}
+html[data-theme="dark"] .project-footer {
+  background: #252e34;
+}
+html[data-theme="dark"] .contact-card {
+  background: #075c9e;
+}
+html[data-theme="dark"] .contact-button {
+    border-color: #d2e8f7;
+    background: #f4f4f1;
+  color: #064f85;
+}
+html[data-theme="dark"] .contact-button:hover {
+    background: #fff;
+  color: #003f70;
+}
+html[data-theme="dark"] .taskbar {
+    border-color: #10161a;
+    background: #252e34;
+    box-shadow:
+      inset 1px 1px #46525a,
+    2px 2px rgba(0, 0, 0, 0.3);
+}
+html[data-theme="dark"] .start-button,
+  html[data-theme="dark"] .window-taskbar-button {
+    border-color: #53616a;
+    background: linear-gradient(#354149, #252e34);
+    color: #edf2f5;
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.12);
+}
+html[data-theme="dark"] .window-taskbar-button:hover {
+  background: #43525c;
+}
+html[data-theme="dark"] .email-shortcut {
+  color: #c3cdd3;
+}
+html[data-theme="dark"] .window-taskbar {
+    border-color: #10161a;
+  background: #252e34;
+}
+html[data-theme="dark"] .education-year {
+  color: #d5dfe5;
+}
+
+@media (max-width: 680px) {
   .main-nav {
     gap: 10px;
     overflow-x: auto;

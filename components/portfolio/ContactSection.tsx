@@ -35,7 +35,7 @@ export function ContactSection({ data }: { data: PortfolioData }) {
           className="retro-button contact-button"
           href={`mailto:${data.profile.email}`}
         >
-          Get in touch <span>↗</span>
+          Email me <span>↗</span>
         </a>
         <div className="contact-details">
           <a href={`tel:${data.profile.phone.replace(/[^+\d]/g, "")}`}>

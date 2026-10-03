@@ -1,14 +1,13 @@
 import type { PortfolioData } from "@/lib/data/portfolio";
 import { WindowBar } from "./Window";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader({ profile }: { profile: PortfolioData["profile"] }) {
   return (
     <header className="topbar">
       <a className="brand" href="#home" aria-label={`${profile.name} home`}>
         <span className="brand-mark">AP</span>
-        <span>
-          {profile.name.toUpperCase()} <small>PERSONAL SITE</small>
-        </span>
+        <span>{profile.name.toUpperCase()}</span>
       </a>
       <nav className="main-nav" aria-label="Main navigation">
         <a href="#about">ABOUT</a>
@@ -16,9 +15,7 @@ export function SiteHeader({ profile }: { profile: PortfolioData["profile"] }) {
         <a href="#projects">PROJECTS</a>
         <a href="#contact">CONTACT</a>
       </nav>
-      <a className="admin-link" href="#contact">
-        <span className="status-dot" /> PORTFOLIO STATUS: ONLINE
-      </a>
+      <ThemeToggle />
     </header>
   );
 }
