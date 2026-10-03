@@ -162,6 +162,25 @@ a:focus-visible {
   border-radius: 4px;
   background: var(--panel);
   box-shadow: 3px 4px 0 rgba(14, 18, 20, 0.13);
+  translate: 0 0;
+}
+.window[data-window-state="minimized"],
+.window[data-window-state="closed"] {
+  display: none;
+}
+.window[data-window-state="maximized"] {
+  position: fixed;
+  z-index: 1000;
+  inset: 12px;
+  width: auto;
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  box-shadow: 5px 8px 30px rgba(14, 18, 20, 0.35);
+}
+.window[data-window-state="maximized"] > .window-bar {
+  position: sticky;
+  z-index: 1;
+  top: 0;
 }
 .window-bar {
   min-height: 37px;
@@ -176,6 +195,11 @@ a:focus-visible {
     700 11px "Courier New",
     monospace;
   letter-spacing: 0.15px;
+  cursor: grab;
+  touch-action: none;
+}
+.window-bar:active {
+  cursor: grabbing;
 }
 .window-title {
   display: flex;
@@ -198,23 +222,33 @@ a:focus-visible {
   display: flex;
   gap: 4px;
 }
-.window-controls span {
+.window-controls button {
   display: grid;
   place-items: center;
   width: 21px;
   height: 20px;
+  padding: 0;
   color: #111;
   border: 1px solid #141414;
   background: linear-gradient(#fff, #c9c9c9);
   box-shadow: inset 1px 1px white;
+  cursor: pointer;
   font:
     700 14px Arial,
     sans-serif;
   line-height: 1;
 }
-.window-controls span:last-child {
+.window-controls button:last-child {
   color: #111;
   background: linear-gradient(#f8f8f8, #d8d8d8);
+}
+.window-controls button:hover {
+  filter: brightness(0.9);
+}
+.window-controls button:focus-visible,
+.window-taskbar-button:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
 }
 .hero-content {
   padding: clamp(30px, 5vw, 58px) clamp(25px, 5vw, 55px) 28px;
@@ -663,6 +697,9 @@ p {
     transform 0.16s,
     box-shadow 0.16s;
 }
+.project-card-link {
+  display: block;
+}
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 4px 7px 0 rgba(14, 18, 20, 0.17);
@@ -671,7 +708,7 @@ p {
   min-height: 32px;
   font-size: 10px;
 }
-.project-card .window-controls span {
+.project-card .window-controls button {
   width: 16px;
   height: 15px;
   font-size: 11px;
@@ -886,6 +923,47 @@ p {
   box-shadow:
     inset 1px 1px #fff,
     2px 2px rgba(0, 0, 0, 0.15);
+}
+.window-taskbar {
+  position: fixed;
+  z-index: 1001;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  gap: 5px;
+  max-width: calc(100vw - 36px);
+  padding: 5px;
+  overflow-x: auto;
+  border: 1px solid #202326;
+  background: #dedfdd;
+  box-shadow:
+    inset 1px 1px #fff,
+    2px 2px rgba(0, 0, 0, 0.2);
+}
+.window-taskbar-button {
+  min-width: 0;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  overflow: hidden;
+  border: 1px solid #9da2a1;
+  background: linear-gradient(#f6f7f6, #d4d6d5);
+  color: #24282a;
+  cursor: pointer;
+  font:
+    700 9px "Courier New",
+    monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.window-taskbar-button span {
+  color: var(--blue-dark);
+  font-size: 12px;
+}
+.window-taskbar-button:hover {
+  background: #fff;
 }
 .start-button {
   min-height: 33px;

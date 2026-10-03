@@ -19,11 +19,8 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
       </div>
       <div className="project-grid">
         {projects.map((project, index) => {
-          const card = (
+          const cardContent = (
             <>
-              <WindowBar
-                title={`project_${String(index + 1).padStart(2, "0")}.app`}
-              />
               <div className="project-body">
                 <div className={`project-art art-${project.color}`}>
                   <span className="project-art-icon">{project.icon}</span>
@@ -40,22 +37,26 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
               </div>
             </>
           );
-          return project.url ? (
-            <a
-              className="window project-card"
-              key={`${project.name}-${index}`}
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {card}
-            </a>
-          ) : (
+          return (
             <article
               className="window project-card"
               key={`${project.name}-${index}`}
             >
-              {card}
+              <WindowBar
+                title={`project_${String(index + 1).padStart(2, "0")}.app`}
+              />
+              {project.url ? (
+                <a
+                  className="project-card-link"
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {cardContent}
+                </a>
+              ) : (
+                cardContent
+              )}
             </article>
           );
         })}
