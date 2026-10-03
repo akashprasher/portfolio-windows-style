@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { AdminAccessPanel } from "@/components/admin/AdminAccessPanel";
 import { PortfolioEditor } from "@/components/admin/PortfolioEditor";
+import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
 import { getPortfolioData } from "@/lib/data/get-portfolio";
 import { getAdminContext } from "@/lib/supabase/auth";
 import { listAdminUsers, signOutAdmin } from "./actions";
@@ -30,6 +31,7 @@ export default async function AdminDashboard() {
             {admin.role.replace("_", " ")}
           </span>
           <span>{admin.user.email}</span>
+          <ThemeToggle />
           <form action={signOutAdmin}>
             <button className="retro-button" type="submit">
               Sign out ↗

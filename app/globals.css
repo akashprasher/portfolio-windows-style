@@ -1780,10 +1780,16 @@ html[data-theme="dark"] .education-year {
 
 /* Private admin area */
 .admin-login-page {
+  position: relative;
   min-height: 100vh;
   display: grid;
   place-items: center;
   padding: 24px;
+}
+.admin-login-page > .theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 .admin-login-window {
   width: min(100%, 470px);
@@ -2221,6 +2227,112 @@ html[data-theme="dark"] .education-year {
   .add-admin-form .retro-button {
     justify-content: center;
   }
+}
+
+html[data-theme="dark"] body:has(.admin-dashboard),
+html[data-theme="dark"] body:has(.admin-login-page) {
+  background-color: #11171c;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(210, 224, 235, 0.025) 0,
+      rgba(210, 224, 235, 0.025) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(115deg, #171e24, #11171c 60%, #1a2228);
+  color: #edf2f5;
+}
+html[data-theme="dark"] .admin-dashboard,
+html[data-theme="dark"] .admin-login-page {
+  --blue: #1689e5;
+  --blue-dark: #79c2ff;
+  --blue-soft: #17374d;
+  --red: #ff727c;
+  --ink: #edf2f5;
+  --muted: #aeb8c0;
+  --paper: #151c21;
+  --panel: #20282e;
+  --line: #0b1014;
+}
+html[data-theme="dark"] .admin-topbar {
+  border-bottom-color: #3b454c;
+}
+html[data-theme="dark"] .admin-account,
+html[data-theme="dark"] .admin-login-content > p,
+html[data-theme="dark"] .editor-savebar p,
+html[data-theme="dark"] .admin-section-title p,
+html[data-theme="dark"] .admin-nav a span,
+html[data-theme="dark"] .admin-help,
+html[data-theme="dark"] .admin-user-row small,
+html[data-theme="dark"] .admin-field-description {
+  color: var(--muted);
+}
+html[data-theme="dark"] .admin-role-badge,
+html[data-theme="dark"] .admin-section-title > span {
+  border-color: #3178a8;
+  background: #17374d;
+  color: #9dd5ff;
+}
+html[data-theme="dark"] .admin-nav a {
+  border-color: #3b454c;
+}
+html[data-theme="dark"] .admin-nav a:hover {
+  background: #253e4e;
+  color: #b9e0ff;
+}
+html[data-theme="dark"] .sidebar-foot {
+  border-color: #3b454c;
+  background: #252e34;
+  color: var(--muted);
+}
+html[data-theme="dark"] .admin-form > label,
+html[data-theme="dark"] .admin-field > span {
+  color: #c3ccd1;
+}
+html[data-theme="dark"] .admin-form input,
+html[data-theme="dark"] .admin-field input,
+html[data-theme="dark"] .admin-field textarea,
+html[data-theme="dark"] .admin-field select {
+  border-color: #53616a;
+  background: #151c21;
+  color: var(--ink);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.28);
+}
+html[data-theme="dark"] .admin-notice {
+  border-color: #53616a;
+  background: #252e34;
+  color: #d5dfe5;
+}
+html[data-theme="dark"] .error-notice {
+  border-color: #9c4c55;
+  background: #382329;
+  color: #ffc0c5;
+}
+html[data-theme="dark"] .success-notice {
+  border-color: #477b52;
+  background: #20372a;
+  color: #b8e8c0;
+}
+html[data-theme="dark"] .repeat-card {
+  border-color: #46525a;
+  background: #252e34;
+}
+html[data-theme="dark"] .repeat-card-heading {
+  color: #79c2ff;
+}
+html[data-theme="dark"] .remove-button {
+  color: #ff929a;
+}
+html[data-theme="dark"] .remove-button:hover {
+  background: #462b30;
+}
+html[data-theme="dark"] .add-admin-form,
+html[data-theme="dark"] .admin-user-row {
+  border-color: #3b454c;
+}
+html[data-theme="dark"] .form-message {
+  color: #79c2ff;
 }
 
 .not-found-page {

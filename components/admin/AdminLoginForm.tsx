@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { startAdminGoogleOAuth } from "@/app/admin/actions";
+import { ThemeToggle } from "@/components/portfolio/ThemeToggle";
 
 export function AdminLoginForm({
   configured,
@@ -33,6 +34,7 @@ export function AdminLoginForm({
 
   return (
     <main className="admin-login-page">
+      <ThemeToggle />
       <section className="window admin-login-window">
         <div className="window-bar">
           <div className="window-title">
