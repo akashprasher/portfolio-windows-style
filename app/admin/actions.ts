@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getAdminContext } from "@/lib/supabase/auth";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -19,13 +20,48 @@ export async function startAdminGoogleOAuth(): Promise<
         message: "Supabase is not configured on this deployment.",
       };
 
-    const siteUrl = (
-      process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-    ).replace(/\/$/, "");
+    const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const requestHost =
+      process.env.NODE_ENV === "development"
+        ? (await headers()).get("host")
+        : null;
+    const isLocalDevelopmentHost =
+      requestHost &&
+      /^(localhost|127\.0\.0\.1|\[::1\])(?::\d{1,5})?$/i.test(requestHost);
+    const siteUrl = isLocalDevelopmentHost
+      ? `http://${requestHost}`
+      : configuredSiteUrl;
+
+    if (!siteUrl) {
+      return {
+        ok: false,
+        message: "Set NEXT_PUBLIC_SITE_URL to the deployed website origin.",
+      };
+    }
+
+    let siteOrigin: string;
+    try {
+      const parsedSiteUrl = new URL(siteUrl);
+      if (
+        (parsedSiteUrl.protocol !== "https:" &&
+          parsedSiteUrl.protocol !== "http:") ||
+        parsedSiteUrl.username ||
+        parsedSiteUrl.password
+      ) {
+        throw new Error("Invalid site URL");
+      }
+      siteOrigin = parsedSiteUrl.origin;
+    } catch {
+      return {
+        ok: false,
+        message: "NEXT_PUBLIC_SITE_URL must be a valid HTTP or HTTPS origin.",
+      };
+    }
+
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${siteUrl}/admin/auth/callback`,
+        redirectTo: new URL("/admin/auth/callback", siteOrigin).toString(),
       },
     });
     if (error || !data.url)
