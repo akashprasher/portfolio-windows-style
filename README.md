@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Akash.OS portfolio
 
-## Getting Started
+Retro-OS styled portfolio built with Next.js App Router. Content is represented once in `lib/data/portfolio.ts`, rendered by reusable sections in `components/portfolio/`, and can be edited from the protected dashboard.
 
-First, run the development server:
+## Routes and structure
+
+- `/` — public portfolio.
+- `/admin/login` — allowlisted email sign-in link.
+- `/admin` — authenticated portfolio editor; superadmins also manage the admin allowlist.
+- `app/admin/actions.ts` — server actions for login, content save, and admin management.
+- `supabase/migrations/` — schema and Row Level Security policies.
+- `lib/data/portfolio.ts` — types and local fallback content.
+- `components/portfolio/` — public site sections.
+- `components/admin/` — login form, content editor, and access panel.
+
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without Supabase credentials, `/` renders the local portfolio fallback and `/admin/login` displays setup instructions. Supabase is required for sign-in and saved edits.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a Supabase project and apply `supabase/migrations/20261003000000_portfolio_admin.sql` in the SQL Editor. This creates the empty `portfolio_content` and `admin_users` tables; there is no need to create a portfolio row first.
+2. Before signing in, bootstrap the first superadmin by running this in the SQL Editor with the email address you will use with Google:
 
-## Learn More
+   ```sql
+   insert into public.admin_users (email, role)
+   values (lower('your-email@example.com'), 'super_admin');
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+   You do not need to create a Supabase Auth user first. Google OAuth creates the Auth user at their first sign-in; the `admin_users` row is what grants dashboard access.
+3. Copy the Project URL, publishable key, and secret key to `.env.local` using `.env.example` as a template. **Never expose the secret key to the browser or commit it.** Set `NEXT_PUBLIC_SITE_URL` to the app origin.
+4. Create a Google OAuth web client in Google Cloud. Add your site origin (for example, `http://localhost:3000`) as an authorized JavaScript origin. Add the Supabase Auth callback URL shown in **Authentication → Providers → Google** as an authorized redirect URI in Google Cloud, then enter the Google client ID and secret in that Supabase provider and enable it.
+5. In Supabase **Authentication → URL Configuration**, allow the local and deployed app callbacks, for example `http://localhost:3000/admin/auth/callback` and `https://your-domain.example/admin/auth/callback`.
+6. Visit `/admin/login` and sign in with the superadmin's Google account. A superadmin can add or remove regular admins from **Admin access**. Adding an email updates the allowlist but does not send an invitation; the new admin must sign in with Google using that same email address.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The portfolio table is publicly readable. Database writes require an authenticated JWT whose email is in `admin_users`; server actions independently check the role. Allowlist rows are not writable through the public client. Only a superadmin can add or remove regular admin rows through the admin panel; the first superadmin is bootstrapped in SQL. The panel does not promote or remove superadmins. Keep at least one superadmin row.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After editing, click **Save & publish**; the public `/` route is revalidated and reads the latest database content. If no content row exists yet, the local starter data is shown until the first save.
