@@ -15,6 +15,7 @@ import {
 const DISPLAY_STATE_KEY = "portfolio-display-glitch-state";
 const REPAIRED_STORAGE_KEY = "portfolio-display-repaired";
 const MAX_GLITCH_APPEARANCES = 5;
+const MOBILE_BREAKPOINT = "(max-width: 680px)";
 
 type SavedDisplayState = {
   triggered: boolean;
@@ -55,10 +56,27 @@ export function EasterEggProvider({
   const [displayGlitch, setDisplayGlitch] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [repaired, setRepaired] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(MOBILE_BREAKPOINT).matches,
+  );
   const displayState = useRef<SavedDisplayState>(INITIAL_DISPLAY_STATE);
+  const appearanceCounted = useRef(false);
+  const remainingDelay = useRef(5_000);
 
   useEffect(() => {
-    if (!displayGlitch) return;
+    const mediaQuery = window.matchMedia(MOBILE_BREAKPOINT);
+    const updateViewport = (event: MediaQueryListEvent) =>
+      setIsMobile(event.matches);
+
+    setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => mediaQuery.removeEventListener("change", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!displayGlitch || isMobile) return;
 
     const audio = new Audio("/audio/error.mp3");
     audio.preload = "auto";
@@ -72,7 +90,7 @@ export function EasterEggProvider({
     return () => {
       audio.pause();
     };
-  }, [displayGlitch]);
+  }, [displayGlitch, isMobile]);
 
   const saveDisplayState = useCallback((state: SavedDisplayState) => {
     displayState.current = state;
@@ -84,6 +102,12 @@ export function EasterEggProvider({
   }, []);
 
   useEffect(() => {
+    if (isMobile) {
+      setDisplayGlitch(false);
+      setTerminalOpen(false);
+      return;
+    }
+
     let savedState = INITIAL_DISPLAY_STATE;
     try {
       const stored = window.localStorage.getItem(DISPLAY_STATE_KEY);
@@ -130,15 +154,17 @@ export function EasterEggProvider({
         saveDisplayState({ ...savedState, resolved: true });
         return;
       }
-      saveDisplayState({
-        ...savedState,
-        appearances: savedState.appearances + 1,
-      });
+      if (!appearanceCounted.current) {
+        saveDisplayState({
+          ...savedState,
+          appearances: savedState.appearances + 1,
+        });
+        appearanceCounted.current = true;
+      }
       setDisplayGlitch(true);
       return;
     }
 
-    let remaining = 5_000;
     let startedAt = 0;
     let timer: number | undefined;
 
@@ -147,20 +173,25 @@ export function EasterEggProvider({
       startedAt = Date.now();
       timer = window.setTimeout(() => {
         timer = undefined;
+        remainingDelay.current = 0;
+        appearanceCounted.current = true;
         saveDisplayState({
           triggered: true,
           appearances: 1,
           resolved: false,
         });
         setDisplayGlitch(true);
-      }, remaining);
+      }, remainingDelay.current);
     }
 
     function pauseTimer() {
       if (timer === undefined) return;
       window.clearTimeout(timer);
       timer = undefined;
-      remaining = Math.max(0, remaining - (Date.now() - startedAt));
+      remainingDelay.current = Math.max(
+        0,
+        remainingDelay.current - (Date.now() - startedAt),
+      );
     }
 
     function handleVisibilityChange() {
@@ -174,7 +205,7 @@ export function EasterEggProvider({
       pauseTimer();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [saveDisplayState]);
+  }, [isMobile, saveDisplayState]);
 
   const repairDisplay = useCallback(() => {
     setDisplayGlitch(false);
@@ -191,7 +222,9 @@ export function EasterEggProvider({
     }
   }, [saveDisplayState]);
 
-  const openTerminal = useCallback(() => setTerminalOpen(true), []);
+  const openTerminal = useCallback(() => {
+    if (!isMobile) setTerminalOpen(true);
+  }, [isMobile]);
 
   return (
     <EasterEggContext.Provider value={{ displayGlitch, openTerminal }}>

@@ -44,6 +44,21 @@ export function PortfolioPage({ data }: { data: PortfolioData }) {
             )}
           </footer>
         </main>
+        <aside
+          className="site-progress-stamp"
+          aria-label="Website status: in progress and always improving"
+        >
+          <span className="site-progress-mark" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M3 17h14M5 17l3-11h4l3 11M7 10h6M8 7h4" />
+              <path d="M7 3.5h6M10 2v2" />
+            </svg>
+          </span>
+          <span className="site-progress-copy">
+            <strong>SITE IN PROGRESS</strong>
+            <small>ALWAYS IMPROVING</small>
+          </span>
+        </aside>
       </WindowManagerProvider>
     </EasterEggProvider>
   );
