@@ -2222,3 +2222,229 @@ html[data-theme="dark"] .education-year {
     justify-content: center;
   }
 }
+
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 28px 28px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(25, 37, 46, 0.035) 0,
+      rgba(25, 37, 46, 0.035) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(115deg, #f7f7f4, #e9ebea 60%, #f5f5f2);
+}
+.not-found-topbar {
+  width: min(100%, 1050px);
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid rgba(17, 19, 21, 0.22);
+}
+.not-found-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font:
+    900 13px/1.2 "Courier New",
+    monospace;
+  letter-spacing: 0.2px;
+}
+.not-found-brand-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #004e8a;
+  background: var(--blue);
+  box-shadow:
+    inset 1px 1px rgba(255, 255, 255, 0.6),
+    2px 2px 0 #111;
+  color: #fff;
+  font-size: 14px;
+}
+.not-found-brand small {
+  display: block;
+  margin-top: 3px;
+  color: #62666b;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.not-found-system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #45494d;
+  font:
+    700 9px "Courier New",
+    monospace;
+  letter-spacing: 0.6px;
+}
+.not-found-system-status > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #35a853;
+  box-shadow: 0 0 0 3px rgba(53, 168, 83, 0.14);
+}
+.not-found-window {
+  width: min(100%, 610px);
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #17191b;
+  border-radius: 4px;
+  background: var(--panel);
+  box-shadow: 4px 5px 0 rgba(14, 18, 20, 0.15);
+}
+.not-found-titlebar {
+  min-height: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 9px 5px 12px;
+  border-bottom: 1px solid #111;
+  background: linear-gradient(#1689e5, #0078d7 68%, #0066b5);
+  color: #fff;
+  font:
+    700 10px "Courier New",
+    monospace;
+  letter-spacing: 0.3px;
+}
+.not-found-titlebar > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.not-found-window-controls {
+  display: flex;
+  gap: 4px;
+}
+.not-found-window-controls i {
+  width: 17px;
+  height: 16px;
+  border: 1px solid #141414;
+  background: linear-gradient(#fff, #c9c9c9);
+  box-shadow: inset 1px 1px white;
+}
+.not-found-content {
+  padding: clamp(28px, 7vw, 56px);
+}
+.not-found-eyebrow {
+  margin-bottom: 20px;
+  color: var(--blue-dark);
+  font:
+    700 10px "Courier New",
+    monospace;
+  letter-spacing: 1.2px;
+}
+.not-found-content h1 {
+  margin-bottom: 15px;
+  font-size: clamp(35px, 8vw, 55px);
+  line-height: 1;
+  letter-spacing: -2.8px;
+}
+.not-found-description {
+  max-width: 440px;
+  margin-bottom: 27px;
+  color: #45494d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.not-found-code {
+  margin-bottom: 27px;
+  padding: 13px 15px;
+  border: 1px solid #c8ccce;
+  background: #f1f2f0;
+  color: #4a4e51;
+  font:
+    10px/1.9 "Courier New",
+    monospace;
+}
+.not-found-code span {
+  margin-right: 8px;
+  color: var(--blue-dark);
+}
+.not-found-code strong {
+  margin-left: 12px;
+  color: #b32632;
+}
+.not-found-home {
+  width: fit-content;
+}
+.not-found-footer {
+  padding: 9px 15px;
+  border-top: 1px solid #d0d2d2;
+  color: #62666b;
+  font:
+    700 8px "Courier New",
+    monospace;
+  letter-spacing: 0.7px;
+}
+.not-found-footer span {
+  padding: 0 5px;
+  color: var(--blue);
+}
+.not-found-footnote {
+  margin: 0;
+  color: #62666b;
+  font:
+    700 8px "Courier New",
+    monospace;
+  letter-spacing: 1px;
+  text-align: center;
+}
+html[data-theme="dark"] .not-found-page {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(180, 195, 202, 0.025) 0,
+      rgba(180, 195, 202, 0.025) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(115deg, #20282e, #161c20 60%, #242b30);
+  color: #edf1f2;
+}
+html[data-theme="dark"] .not-found-topbar {
+  border-color: rgba(220, 229, 232, 0.2);
+}
+html[data-theme="dark"] .not-found-brand small,
+html[data-theme="dark"] .not-found-system-status,
+html[data-theme="dark"] .not-found-description,
+html[data-theme="dark"] .not-found-footer,
+html[data-theme="dark"] .not-found-footnote {
+  color: #b0bbc0;
+}
+html[data-theme="dark"] .not-found-window {
+  border-color: #10161a;
+  background: #252e34;
+}
+html[data-theme="dark"] .not-found-code {
+  border-color: #53616a;
+  background: #1b2226;
+  color: #c3ccd1;
+}
+html[data-theme="dark"] .not-found-footer {
+  border-color: #53616a;
+}
+@media (max-width: 480px) {
+  .not-found-page {
+    padding: 0 15px 20px;
+  }
+  .not-found-topbar {
+    min-height: 70px;
+  }
+  .not-found-system-status {
+    font-size: 8px;
+  }
+  .not-found-content {
+    padding: 30px 23px;
+  }
+}
