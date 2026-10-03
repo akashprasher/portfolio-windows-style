@@ -11,15 +11,15 @@ export default async function AdminLoginPage({
   const { error } = await searchParams;
   const callbackErrors: Record<string, string> = {
     auth_callback_failed:
-      "Google sign-in did not complete. Check the Google provider and Supabase redirect URL configuration, then try again.",
+      "We couldn't complete sign-in. Please try again, or contact the site owner if this continues.",
     admin_email_missing:
-      "Google sign-in succeeded, but Supabase did not return an email address for this account.",
+      "We couldn't verify this account for sign-in. Please try another account or contact the site owner.",
     admin_not_allowlisted:
-      "This Google account is not on the administrator allowlist. Ask a superadmin to add your email, or add it to public.admin_users in the Supabase SQL Editor.",
+      "This account doesn't have access to the admin area. Contact the site owner if you think this is a mistake.",
     admin_setup_required:
-      "The admin tables are missing. Apply the Supabase migration, then add your first superadmin email to public.admin_users.",
+      "Admin sign-in is temporarily unavailable. Please try again later or contact the site owner.",
     admin_check_failed:
-      "Google sign-in succeeded, but admin access could not be checked. Verify the migration, Data API access, and Supabase connection.",
+      "Admin sign-in is temporarily unavailable. Please try again later or contact the site owner.",
   };
   const publishableKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
