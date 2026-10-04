@@ -134,10 +134,10 @@ a:focus-visible {
   transform: scaleX(1);
 }
 .theme-toggle {
-  width: 104px;
+  width: 124px;
   min-height: 34px;
   display: grid;
-  grid-template-columns: 16px 48px;
+  grid-template-columns: 16px minmax(0, 1fr);
   align-items: center;
   justify-content: center;
   gap: 7px;
@@ -153,6 +153,18 @@ a:focus-visible {
   letter-spacing: 0.45px;
   white-space: nowrap;
 }
+.theme-toggle-select {
+  width: 100%;
+  padding: 4px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: uppercase;
+}
 .theme-toggle:hover {
   border-color: var(--blue-dark);
   color: var(--blue-dark);
@@ -162,10 +174,7 @@ a:focus-visible {
   width: 16px;
   height: 16px;
 }
-.theme-toggle-label {
-  text-align: center;
-}
-.theme-toggle:focus-visible {
+.theme-toggle:focus-within {
   outline: 3px solid var(--red);
   outline-offset: 3px;
 }
@@ -1488,13 +1497,11 @@ html[data-theme="dark"] .recovery-terminal-footer {
     font-size: 12px;
   }
   .theme-toggle {
-    width: 34px;
+    width: 112px;
     min-height: 32px;
-    padding: 0;
-    grid-template-columns: 16px;
-  }
-  .theme-toggle-label {
-    display: none;
+    padding: 0 8px;
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 5px;
   }
 }
 

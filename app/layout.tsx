@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Akash Prasher — Senior Software Engineer",
+  title: "Akash Prasher - Senior Software Engineer",
   description:
     "Akash Prasher is a Senior Software Engineer in Delhi, India, building scalable full-stack products with React, Next.js, TypeScript, Node.js, and FastAPI.",
   keywords: [
