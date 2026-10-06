@@ -37,11 +37,22 @@ export function PortfolioPage({ data }: { data: PortfolioData }) {
               <span>© 2026 {data.profile.name.toUpperCase()}</span>
               <span>DESIGNED TO SHIP.</span>
             </div>
-            {data.resumeUrl && (
-              <a className="footer-resume-link" href="/resume">
-                RESUME <span aria-hidden="true">↗</span>
+            <div>
+              <a
+                className="footer-resume-link"
+                href="https://retro.akashprasher.com"
+              >
+                RETRO <span aria-hidden="true">↗</span>
               </a>
-            )}
+              <a className="footer-resume-link" href="/llms.txt">
+                LLMS.TXT
+              </a>
+              {data.resumeUrl && (
+                <a className="footer-resume-link" href="/resume">
+                  RESUME <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
           </footer>
         </main>
         <aside

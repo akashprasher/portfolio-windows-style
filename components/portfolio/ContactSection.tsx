@@ -37,7 +37,7 @@ export function ContactSection({ data }: { data: PortfolioData }) {
         >
           Email me <span>↗</span>
         </a>
-        <div className="contact-details">
+        {/* <div className="contact-details">
           <a href={`tel:${data.profile.phone.replace(/[^+\d]/g, "")}`}>
             {data.profile.phone}
           </a>
@@ -48,7 +48,7 @@ export function ContactSection({ data }: { data: PortfolioData }) {
           >
             {data.profile.website}
           </a>
-        </div>
+        </div> */}
       </article>
     </section>
   );

@@ -1008,6 +1008,7 @@ p {
 }
 
 .taskbar {
+  position: relative;
   min-height: 50px;
   display: flex;
   align-items: center;
@@ -1084,8 +1085,12 @@ p {
     1px 1px 0 #111;
 }
 .taskbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 20px;
+  justify-content: center;
   color: #666b6e;
   font:
     700 9px "Courier New",
@@ -1748,6 +1753,8 @@ html[data-theme="dark"] .education-year {
     margin-top: 48px;
   }
   .taskbar-center {
+    position: static;
+    transform: none;
     order: 3;
     width: 100%;
     justify-content: space-between;
